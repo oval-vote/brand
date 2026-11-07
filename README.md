@@ -140,6 +140,13 @@ The logo and wordmark identify the Oval project. Use them to refer to Oval, to s
 reads or writes the format, or to link to oval.vote. Do not use them to suggest that the project
 endorses a guide, a candidate, a party, or a position, and do not modify them.
 
+## License
+
+The files in `logo/` are licensed under
+[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/): copy and redistribute them
+unchanged, with attribution, and do not make derivatives. Everything else, including the tokens,
+the stylesheets, and the scripts, is licensed under the MIT License. Both texts are in `LICENSE`.
+
 ## Developing
 
 ```sh
