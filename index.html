@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Oval identity</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="logo/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="tokens/oval.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--oval-paper);
+        color: var(--oval-ink);
+        font-family: var(--oval-font-text);
+        font-optical-sizing: auto;
+        font-size: var(--oval-size-body);
+        line-height: var(--oval-line-body);
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+        text-decoration-color: var(--oval-mark);
+        text-underline-offset: 0.18em;
+      }
+      a:focus-visible {
+        outline: 2px solid var(--oval-mark);
+        outline-offset: 3px;
+      }
+      .page {
+        max-width: var(--oval-measure);
+        margin: 0 auto;
+        padding: var(--oval-space-8) max(16px, env(safe-area-inset-left)) var(--oval-space-16)
+          max(16px, env(safe-area-inset-right));
+      }
+      header.lockup {
+        display: flex;
+        align-items: center;
+        gap: var(--oval-space-4);
+        margin-bottom: var(--oval-space-12);
+      }
+      header.lockup img {
+        height: 3rem;
+        width: auto;
+      }
+      header.lockup p {
+        margin: 0;
+        color: var(--oval-ink-soft);
+      }
+      header.lockup .lockup-dark {
+        display: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) header.lockup .lockup-light {
+          display: none;
+        }
+        :root:not([data-theme="light"]) header.lockup .lockup-dark {
+          display: block;
+        }
+      }
+      :root[data-theme="dark"] header.lockup .lockup-light {
+        display: none;
+      }
+      :root[data-theme="dark"] header.lockup .lockup-dark {
+        display: block;
+      }
+      fieldset.theme {
+        display: flex;
+        gap: var(--oval-space-3);
+        margin: 0 0 0 auto;
+        padding: 0;
+        border: 0;
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+        color: var(--oval-ink-soft);
+      }
+      fieldset.theme label {
+        display: flex;
+        align-items: center;
+        gap: var(--oval-space-1);
+        cursor: pointer;
+      }
+      fieldset.theme input {
+        accent-color: var(--oval-mark);
+        margin: 0;
+      }
+      @media (max-width: 600px) {
+        header.lockup {
+          flex-wrap: wrap;
+        }
+      }
+      h1 {
+        font-size: var(--oval-size-h1);
+        font-weight: 500;
+        line-height: var(--oval-line-tight);
+        letter-spacing: -0.015em;
+        margin: 0 0 var(--oval-space-2);
+        text-wrap: balance;
+      }
+      h2 {
+        font-size: var(--oval-size-h2);
+        font-weight: 500;
+        line-height: var(--oval-line-tight);
+        margin: var(--oval-space-16) 0 var(--oval-space-4);
+        padding-top: var(--oval-space-4);
+        border-top: var(--oval-rule-width) solid var(--oval-rule);
+      }
+      h3 {
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: var(--oval-tracking-label);
+        color: var(--oval-ink-soft);
+        margin: var(--oval-space-8) 0 var(--oval-space-3);
+      }
+      p {
+        margin: 0 0 var(--oval-space-4);
+        max-width: 36em;
+      }
+      code {
+        font-family: var(--oval-font-mono);
+        font-size: 0.9em;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+        gap: var(--oval-space-4);
+      }
+      .tile {
+        background: var(--oval-paper-raised);
+        border: var(--oval-rule-width) solid var(--oval-rule);
+        border-radius: var(--oval-radius-card);
+        padding: var(--oval-space-6);
+        display: grid;
+        place-items: center;
+        min-height: 9rem;
+      }
+      .tile.dark {
+        background: #16150f;
+        color: #ebe8df;
+      }
+      .tile.light {
+        background: #f2f1ec;
+        color: #17150f;
+      }
+      .tile img,
+      .tile svg {
+        max-width: 100%;
+        height: 2.25rem;
+        width: auto;
+      }
+      .tile .big {
+        height: 4rem;
+      }
+      .caption {
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+        color: var(--oval-ink-soft);
+        margin: var(--oval-space-2) 0 0;
+        text-align: center;
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+        gap: var(--oval-space-3);
+      }
+      .swatch {
+        border: var(--oval-rule-width) solid var(--oval-rule);
+        border-radius: var(--oval-radius-card);
+        overflow: hidden;
+        background: var(--oval-paper-raised);
+      }
+      .swatch .chip {
+        height: 4.5rem;
+      }
+      .swatch dl {
+        margin: 0;
+        padding: var(--oval-space-3);
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+        display: grid;
+        gap: var(--oval-space-1);
+      }
+      .swatch dt {
+        font-weight: 600;
+      }
+      .swatch dd {
+        margin: 0;
+        color: var(--oval-ink-soft);
+        font-family: var(--oval-font-mono);
+      }
+      .specimen {
+        border-top: var(--oval-rule-width) solid var(--oval-rule);
+        padding: var(--oval-space-4) 0;
+        display: grid;
+        grid-template-columns: 8rem 1fr;
+        gap: var(--oval-space-4);
+        align-items: baseline;
+      }
+      .specimen .role {
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+        color: var(--oval-ink-soft);
+      }
+      .specimen .sample {
+        min-width: 0;
+        margin: 0;
+      }
+      .display {
+        font-size: var(--oval-size-display);
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .lead {
+        font-size: var(--oval-size-lead);
+      }
+      .ui {
+        font-family: var(--oval-font-ui);
+      }
+      .mono {
+        font-family: var(--oval-font-mono);
+        white-space: pre;
+        overflow-x: auto;
+        font-size: var(--oval-size-small);
+      }
+      .label {
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: var(--oval-tracking-label);
+      }
+      .stances {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: var(--oval-space-2);
+        font-family: var(--oval-font-ui);
+      }
+      .stances li {
+        display: flex;
+        align-items: center;
+        gap: var(--oval-space-3);
+      }
+      .stances svg {
+        height: 1rem;
+        width: auto;
+      }
+      .support {
+        color: var(--oval-support);
+      }
+      .oppose {
+        color: var(--oval-oppose);
+      }
+      .muted {
+        color: var(--oval-ink-soft);
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+      }
+      th,
+      td {
+        text-align: left;
+        padding: var(--oval-space-2) var(--oval-space-3);
+        border-top: var(--oval-rule-width) solid var(--oval-rule);
+        vertical-align: top;
+      }
+      th {
+        color: var(--oval-ink-soft);
+        font-weight: 600;
+      }
+      td code {
+        font-size: 0.95em;
+      }
+      @media (max-width: 40rem) {
+        .specimen {
+          grid-template-columns: 1fr;
+          gap: var(--oval-space-1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      try {
+        const theme = localStorage.getItem("oval-theme");
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch {}
+    </script>
+    <div class="page">
+      <header class="lockup">
+        <img class="lockup-light" src="logo/lockup.svg" alt="Oval" />
+        <img class="lockup-dark" src="logo/lockup-reverse.svg" alt="Oval" />
+        <p>Identity and design tokens</p>
+        <fieldset class="theme" aria-label="Theme">
+          <label><input type="radio" name="theme" value="light" /> Light</label>
+          <label><input type="radio" name="theme" value="dark" /> Dark</label>
+          <label><input type="radio" name="theme" value="auto" checked /> Auto</label>
+        </fieldset>
+      </header>
+
+      <h1>A ballot oval, filled in.</h1>
+      <p>
+        Oval is a plain-text format for voting guides. Its identity is the ballot itself: paper,
+        ink, the purple that marks it, and the oval a voter darkens. Everything on this page comes
+        from
+        <code>tokens/oval.css</code> and the files under <code>logo/</code>.
+      </p>
+
+      <h2>Mark and wordmark</h2>
+      <div class="grid">
+        <div>
+          <div class="tile light"><img class="big" src="logo/mark.svg" alt="The Oval mark" /></div>
+          <p class="caption">mark.svg on paper</p>
+        </div>
+        <div>
+          <div class="tile dark">
+            <img class="big" src="logo/mark-reverse.svg" alt="The Oval mark on dark paper" />
+          </div>
+          <p class="caption">mark-reverse.svg on dark paper</p>
+        </div>
+        <div>
+          <div class="tile">
+            <svg
+              viewBox="0 0 64 40"
+              style="height: 4rem; color: var(--oval-ink)"
+              aria-label="Single-color mark"
+            >
+              <ellipse cx="32" cy="20" rx="29.5" ry="17.5" fill="currentColor" />
+            </svg>
+          </div>
+          <p class="caption">mark-mono.svg, currentColor</p>
+        </div>
+        <div>
+          <div class="tile">
+            <svg
+              viewBox="0 0 64 40"
+              style="height: 4rem; color: var(--oval-ink)"
+              aria-label="Outline mark"
+            >
+              <ellipse
+                cx="32"
+                cy="20"
+                rx="29.5"
+                ry="17.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="5"
+              />
+            </svg>
+          </div>
+          <p class="caption">mark-outline.svg, the unfilled state</p>
+        </div>
+      </div>
+      <div class="grid" style="margin-top: var(--oval-space-4)">
+        <div>
+          <div class="tile light"><img src="logo/wordmark.svg" alt="Oval wordmark" /></div>
+          <p class="caption">wordmark.svg</p>
+        </div>
+        <div>
+          <div class="tile light"><img src="logo/lockup.svg" alt="Oval lockup" /></div>
+          <p class="caption">lockup.svg</p>
+        </div>
+        <div>
+          <div class="tile dark">
+            <img src="logo/lockup-reverse.svg" alt="Oval lockup on dark paper" />
+          </div>
+          <p class="caption">lockup-reverse.svg</p>
+        </div>
+        <div>
+          <div class="tile light">
+            <img src="logo/icon.svg" alt="App icon" style="height: 4rem; border-radius: 0.9rem" />
+          </div>
+          <p class="caption">icon.svg</p>
+        </div>
+        <div>
+          <div class="tile light">
+            <img src="logo/favicon.svg" alt="Favicon" style="height: 2rem" />
+          </div>
+          <p class="caption">favicon.svg at 32 px</p>
+        </div>
+      </div>
+      <p style="margin-top: var(--oval-space-6)">
+        Clear space is half the mark's height on every side. The mark is never smaller than 12
+        pixels tall, never stretched, rotated, or shadowed, and never in a color other than ink and
+        the marking purple, or one color from the palette.
+      </p>
+
+      <h2>Color</h2>
+      <p>
+        Purple, not red or blue. Red and blue mean parties in American politics, so the accent is a
+        color that belongs to no party, one shade with 4.0:1 contrast on both papers; the only red
+        is the one that means against, and support is a green.
+      </p>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-paper)"></div>
+          <dl>
+            <dt>paper</dt>
+            <dd>#f2f1ec / #16150f</dd>
+          </dl>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-paper-raised)"></div>
+          <dl>
+            <dt>paper-raised</dt>
+            <dd>#fbfaf7 / #211f17</dd>
+          </dl>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-ink)"></div>
+          <dl>
+            <dt>ink</dt>
+            <dd>#17150f / #ebe8df</dd>
+          </dl>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-ink-soft)"></div>
+          <dl>
+            <dt>ink-soft</dt>
+            <dd>#5f5b50 / #9d988b</dd>
+          </dl>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-rule)"></div>
+          <dl>
+            <dt>rule</dt>
+            <dd>#cfccc2 / #37352c</dd>
+          </dl>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-mark)"></div>
+          <dl>
+            <dt>mark</dt>
+            <dd>#975cc1 / #975cc1</dd>
+          </dl>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-support)"></div>
+          <dl>
+            <dt>support</dt>
+            <dd>#2e6b3a / #5fb36c</dd>
+          </dl>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background: var(--oval-oppose)"></div>
+          <dl>
+            <dt>oppose</dt>
+            <dd>#c4343a / #e2666b</dd>
+          </dl>
+        </div>
+      </div>
+      <h3>Stances in a rendered guide</h3>
+      <ul class="stances">
+        <li class="support">
+          <svg viewBox="0 0 64 40" aria-hidden="true">
+            <ellipse cx="32" cy="20" rx="29.5" ry="17.5" fill="currentColor" /></svg
+          ><span class="label">Recommended</span
+          ><span
+            class="muted"
+            style="font-family: var(--oval-font-text); font-size: var(--oval-size-body)"
+            >Beatriz Santos</span
+          >
+        </li>
+        <li class="oppose">
+          <svg viewBox="0 0 64 40" aria-hidden="true">
+            <ellipse
+              cx="32"
+              cy="20"
+              rx="29.5"
+              ry="17.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+            />
+            <path d="M20 10l24 20M44 10L20 30" stroke="currentColor" stroke-width="5" /></svg
+          ><span class="label">Oppose</span
+          ><span
+            class="muted"
+            style="font-family: var(--oval-font-text); font-size: var(--oval-size-body)"
+            >Carl Fox</span
+          >
+        </li>
+        <li class="muted">
+          <svg viewBox="0 0 64 40" aria-hidden="true">
+            <ellipse
+              cx="32"
+              cy="20"
+              rx="29.5"
+              ry="17.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+            /></svg
+          ><span class="label">No position</span
+          ><span style="font-family: var(--oval-font-text); font-size: var(--oval-size-body)"
+            >Dee Wright</span
+          >
+        </li>
+      </ul>
+
+      <h2>Type</h2>
+      <div class="specimen">
+        <div class="role">Newsreader 500, display</div>
+        <p class="sample display">Franklin Voter Guide</p>
+      </div>
+      <div class="specimen">
+        <div class="role">Newsreader 400, lead</div>
+        <p class="sample lead">
+          Every contest and measure on your ballot, with our recommendation and the reasoning behind
+          it.
+        </p>
+      </div>
+      <div class="specimen">
+        <div class="role">Newsreader 400, text</div>
+        <p class="sample">
+          Santos has kept her 2022 promises on housing and transit. Fox has no plan beyond cutting a
+          budget he has not read. We interviewed every candidate who agreed to meet with us and read
+          every measure in full.
+        </p>
+      </div>
+      <div class="specimen">
+        <div class="role">Public Sans, UI</div>
+        <p class="sample ui">
+          <span class="label">Vote for one</span> &nbsp;
+          <span class="label support">Recommended</span> &nbsp;
+          <span class="label oppose">Oppose</span> &nbsp; <span class="label muted">Incumbent</span>
+        </p>
+      </div>
+      <div class="specimen">
+        <div class="role">IBM Plex Mono, source</div>
+        <pre class="sample mono">
+oval 1
+
+guide "Ashford Voter Guide"
+election "November 3, 2026 General Election"
+date 2026-11-03
+
+ballot @city "City of Ashford"
+  contest @mayor "Mayor" single
+    campaign incumbent @bsantos "Beatriz Santos"
+    campaign @cfox "Carl Fox"
+    recommend
+      support @bsantos</pre>
+      </div>
+
+      <h2>Tokens</h2>
+      <p>
+        Every value on this page is a custom property in <code>tokens/oval.css</code>, prefixed
+        <code>--oval-</code>, and the same set as data in <code>tokens/oval.json</code>.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Color</td>
+            <td>
+              <code>paper</code> <code>paper-raised</code> <code>ink</code> <code>ink-soft</code>
+              <code>rule</code> <code>mark</code> <code>support</code> <code>oppose</code>
+            </td>
+          </tr>
+          <tr>
+            <td>Font</td>
+            <td><code>font-text</code> <code>font-ui</code> <code>font-mono</code></td>
+          </tr>
+          <tr>
+            <td>Size</td>
+            <td>
+              <code>size-small</code> <code>size-body</code> <code>size-lead</code>
+              <code>size-h3</code> <code>size-h2</code> <code>size-h1</code>
+              <code>size-display</code> <code>line-body</code> <code>line-tight</code>
+              <code>tracking-label</code> <code>measure</code>
+            </td>
+          </tr>
+          <tr>
+            <td>Space</td>
+            <td><code>space-1</code> through <code>space-16</code>, in quarter rems</td>
+          </tr>
+          <tr>
+            <td>Radius</td>
+            <td><code>radius-small</code> <code>radius-card</code> <code>radius-oval</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      const picker = document.querySelector("fieldset.theme");
+      const current = document.documentElement.dataset.theme || "auto";
+      picker.querySelector(`input[value="${current}"]`).checked = true;
+      picker.addEventListener("change", (event) => {
+        const theme = event.target.value;
+        if (theme === "auto") {
+          delete document.documentElement.dataset.theme;
+        } else {
+          document.documentElement.dataset.theme = theme;
+        }
+        try {
+          if (theme === "auto") {
+            localStorage.removeItem("oval-theme");
+          } else {
+            localStorage.setItem("oval-theme", theme);
+          }
+        } catch {}
+      });
+    </script>
+  </body>
+</html>
