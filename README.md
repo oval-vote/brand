@@ -1,4 +1,4 @@
-# Oval identity
+# Oval Brand Identity
 
 The identity for [Oval](https://oval.vote), the plain-text format for voting guides, and for the
 organization that publishes it. Everything here is the source: the logo, the wordmark, the colors,
