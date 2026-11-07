@@ -156,3 +156,21 @@ Open `index.html` in a browser to see the system on one page.
 Every push to `main` that passes `npm run check` deploys the page to GitHub Pages. `npm run build`
 assembles `dist/` from `index.html`, `logo/`, `tokens/`, and `css/`, and the workflow uploads that
 directory, so nothing else in the repository is served.
+
+The same files are published to npm as `@oval-vote/brand`, so a project can depend on the tokens
+and components instead of linking to the site:
+
+```sh
+npm install @oval-vote/brand
+```
+
+```js
+import "@oval-vote/brand/tokens/oval.css";
+import "@oval-vote/brand/css/components.css";
+import tokens from "@oval-vote/brand/tokens/oval.json" with { type: "json" };
+```
+
+A release is a tag. Set the version with `npm version <version> --no-git-tag-version`, commit, tag
+the commit `v<version>`, and push the tag. The release workflow runs the checks, confirms that the
+tag matches `package.json`, and publishes with provenance through
+[trusted publishing](https://docs.npmjs.com/trusted-publishers), so no token is stored anywhere.

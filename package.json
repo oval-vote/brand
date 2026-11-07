@@ -1,7 +1,19 @@
 {
-  "name": "oval-branding",
-  "private": true,
-  "description": "The Oval identity: logo, wordmark, colors, type, and tokens",
+  "name": "@oval-vote/brand",
+  "version": "0.1.0",
+  "description": "The Oval design system: tokens, components, logo, and wordmark",
+  "license": "MIT",
+  "exports": {
+    "./tokens/oval.css": "./tokens/oval.css",
+    "./tokens/oval.json": "./tokens/oval.json",
+    "./css/components.css": "./css/components.css",
+    "./logo/*": "./logo/*"
+  },
+  "files": [
+    "tokens/",
+    "css/",
+    "logo/"
+  ],
   "scripts": {
     "logo": "node scripts/logo.mjs",
     "logo:check": "node scripts/logo.mjs --check",
@@ -12,6 +24,11 @@
     "format:check": "prettier --check .",
     "check": "npm run format:check && npm run logo:check && npm run avatar:check",
     "test": "npm run check"
+  },
+  "repository": "github:oval-vote/brand",
+  "homepage": "https://brand.oval.vote",
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
