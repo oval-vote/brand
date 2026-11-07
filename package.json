@@ -5,13 +5,16 @@
   "scripts": {
     "wordmark": "node scripts/wordmark.mjs",
     "wordmark:check": "node scripts/wordmark.mjs --check",
+    "avatar": "node scripts/avatar.mjs",
+    "avatar:check": "node scripts/avatar.mjs --check",
     "build": "rm -rf dist && mkdir dist && cp -R index.html logo tokens dist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run format:check && npm run wordmark:check",
+    "check": "npm run format:check && npm run wordmark:check && npm run avatar:check",
     "test": "npm run check"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "fontkit": "2.0.4",
     "prettier": "3.9.10"
   }
