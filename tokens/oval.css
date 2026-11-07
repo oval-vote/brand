@@ -1,27 +1,38 @@
 :root {
   --oval-paper: #f2f1ec;
   --oval-paper-raised: #fbfaf7;
+  --oval-paper-sunken: #e9e8e2;
   --oval-ink: #17150f;
   --oval-ink-soft: #5f5b50;
   --oval-rule: #cfccc2;
-  --oval-mark: #975cc1;
+  --oval-mark: #8347ae;
+  --oval-mark-soft: #ebe1f4;
   --oval-support: #2e6b3a;
+  --oval-support-soft: #e3efe4;
   --oval-oppose: #c4343a;
+  --oval-oppose-soft: #f8e3e3;
+  --oval-focus: var(--oval-mark);
 
+  --oval-font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --oval-font-text: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --oval-font-ui: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --oval-font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
+  --oval-size-label: 0.75rem;
   --oval-size-small: 0.875rem;
+  --oval-size-mono: 0.9375rem;
   --oval-size-body: 1.125rem;
   --oval-size-lead: 1.375rem;
   --oval-size-h3: 1.5rem;
   --oval-size-h2: 2rem;
   --oval-size-h1: 2.75rem;
-  --oval-size-display: 4rem;
+  --oval-size-display: 4.5rem;
   --oval-line-body: 1.5;
-  --oval-line-tight: 1.1;
+  --oval-line-heading: 1.15;
+  --oval-line-tight: 1;
   --oval-tracking-label: 0.06em;
+  --oval-tracking-display: -0.01em;
+  --oval-measure: 44rem;
 
   --oval-space-1: 0.25rem;
   --oval-space-2: 0.5rem;
@@ -31,36 +42,55 @@
   --oval-space-8: 2rem;
   --oval-space-12: 3rem;
   --oval-space-16: 4rem;
-  --oval-measure: 44rem;
+  --oval-space-24: 6rem;
 
   --oval-radius-small: 0.125rem;
-  --oval-radius-card: 0.375rem;
+  --oval-radius-control: 0.25rem;
+  --oval-radius-card: 0.5rem;
+  --oval-radius-pill: 999px;
   --oval-radius-oval: 50%;
   --oval-rule-width: 1px;
+  --oval-control-height: 2.5rem;
+  --oval-duration: 150ms;
+  --oval-easing: cubic-bezier(0.2, 0, 0, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --oval-paper: #16150f;
-    --oval-paper-raised: #211f17;
-    --oval-ink: #ebe8df;
-    --oval-ink-soft: #9d988b;
-    --oval-rule: #37352c;
-    --oval-mark: #975cc1;
-    --oval-support: #5fb36c;
-    --oval-oppose: #e2666b;
+    --oval-paper: #131313;
+    --oval-paper-raised: #1c1c1c;
+    --oval-paper-sunken: #0d0d0d;
+    --oval-ink: #e8e6e1;
+    --oval-ink-soft: #9a9892;
+    --oval-rule: #2c2c2c;
+    --oval-mark: #b48ad9;
+    --oval-mark-soft: #2a2234;
+    --oval-support: #6cc07a;
+    --oval-support-soft: #1a2a1d;
+    --oval-oppose: #ef6f72;
+    --oval-oppose-soft: #331c1d;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --oval-paper: #16150f;
-  --oval-paper-raised: #211f17;
-  --oval-ink: #ebe8df;
-  --oval-ink-soft: #9d988b;
-  --oval-rule: #37352c;
-  --oval-mark: #975cc1;
-  --oval-support: #5fb36c;
-  --oval-oppose: #e2666b;
+  --oval-paper: #131313;
+  --oval-paper-raised: #1c1c1c;
+  --oval-paper-sunken: #0d0d0d;
+  --oval-ink: #e8e6e1;
+  --oval-ink-soft: #9a9892;
+  --oval-rule: #2c2c2c;
+  --oval-mark: #b48ad9;
+  --oval-mark-soft: #2a2234;
+  --oval-support: #6cc07a;
+  --oval-support-soft: #1a2a1d;
+  --oval-oppose: #ef6f72;
+  --oval-oppose-soft: #331c1d;
   color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --oval-duration: 0ms;
+  }
 }

@@ -3,14 +3,14 @@
   "private": true,
   "description": "The Oval identity: logo, wordmark, colors, type, and tokens",
   "scripts": {
-    "wordmark": "node scripts/wordmark.mjs",
-    "wordmark:check": "node scripts/wordmark.mjs --check",
+    "logo": "node scripts/logo.mjs",
+    "logo:check": "node scripts/logo.mjs --check",
     "avatar": "node scripts/avatar.mjs",
     "avatar:check": "node scripts/avatar.mjs --check",
-    "build": "rm -rf dist && mkdir dist && cp -R index.html logo tokens dist",
+    "build": "rm -rf dist && mkdir dist && cp -R index.html logo tokens css dist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run format:check && npm run wordmark:check && npm run avatar:check",
+    "check": "npm run format:check && npm run logo:check && npm run avatar:check",
     "test": "npm run check"
   },
   "devDependencies": {

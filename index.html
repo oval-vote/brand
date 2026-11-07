@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Oval identity</title>
+    <title>Oval design system</title>
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="logo/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="tokens/oval.css" />
+    <link rel="stylesheet" href="css/components.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
     />
     <style>
       * {
@@ -21,57 +22,48 @@
         margin: 0;
         background: var(--oval-paper);
         color: var(--oval-ink);
-        font-family: var(--oval-font-text);
-        font-optical-sizing: auto;
-        font-size: var(--oval-size-body);
-        line-height: var(--oval-line-body);
+        font: var(--oval-size-body) / var(--oval-line-body) var(--oval-font-text);
         -webkit-font-smoothing: antialiased;
       }
-      a {
-        color: inherit;
-        text-decoration-color: var(--oval-mark);
-        text-underline-offset: 0.18em;
-      }
-      a:focus-visible {
-        outline: 2px solid var(--oval-mark);
-        outline-offset: 3px;
-      }
       .page {
-        max-width: var(--oval-measure);
+        max-width: 64rem;
         margin: 0 auto;
-        padding: var(--oval-space-8) max(16px, env(safe-area-inset-left)) var(--oval-space-16)
+        padding: var(--oval-space-6) max(16px, env(safe-area-inset-left)) var(--oval-space-24)
           max(16px, env(safe-area-inset-right));
       }
-      header.lockup {
+      header.top {
         display: flex;
         align-items: center;
         gap: var(--oval-space-4);
-        margin-bottom: var(--oval-space-12);
+        flex-wrap: wrap;
+        margin-bottom: var(--oval-space-16);
       }
-      header.lockup img {
-        height: 3rem;
+      header.top img {
+        height: 2.75rem;
         width: auto;
       }
-      header.lockup p {
-        margin: 0;
-        color: var(--oval-ink-soft);
-      }
-      header.lockup .lockup-dark {
+      header.top .lockup-dark {
         display: none;
       }
       @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) header.lockup .lockup-light {
+        :root:not([data-theme="light"]) header.top .lockup-light {
           display: none;
         }
-        :root:not([data-theme="light"]) header.lockup .lockup-dark {
+        :root:not([data-theme="light"]) header.top .lockup-dark {
           display: block;
         }
       }
-      :root[data-theme="dark"] header.lockup .lockup-light {
+      :root[data-theme="dark"] header.top .lockup-light {
         display: none;
       }
-      :root[data-theme="dark"] header.lockup .lockup-dark {
+      :root[data-theme="dark"] header.top .lockup-dark {
         display: block;
+      }
+      header.top p {
+        margin: 0;
+        color: var(--oval-ink-soft);
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
       }
       fieldset.theme {
         display: flex;
@@ -93,202 +85,228 @@
         accent-color: var(--oval-mark);
         margin: 0;
       }
-      @media (max-width: 600px) {
-        header.lockup {
-          flex-wrap: wrap;
-        }
+      .hero {
+        max-width: var(--oval-measure);
+        margin-bottom: var(--oval-space-16);
       }
-      h1 {
-        font-size: var(--oval-size-h1);
-        font-weight: 500;
-        line-height: var(--oval-line-tight);
-        letter-spacing: -0.015em;
-        margin: 0 0 var(--oval-space-2);
-        text-wrap: balance;
+      .hero p {
+        margin: var(--oval-space-4) 0 0;
       }
-      h2 {
-        font-size: var(--oval-size-h2);
-        font-weight: 500;
-        line-height: var(--oval-line-tight);
-        margin: var(--oval-space-16) 0 var(--oval-space-4);
+      section {
+        margin-top: var(--oval-space-24);
+      }
+      section > h2.oval-h2 {
         padding-top: var(--oval-space-4);
         border-top: var(--oval-rule-width) solid var(--oval-rule);
+        margin-bottom: var(--oval-space-2);
       }
-      h3 {
-        font-family: var(--oval-font-ui);
-        font-size: var(--oval-size-small);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: var(--oval-tracking-label);
-        color: var(--oval-ink-soft);
-        margin: var(--oval-space-8) 0 var(--oval-space-3);
+      section > h3.oval-h3 {
+        margin: var(--oval-space-12) 0 var(--oval-space-3);
+      }
+      .intro {
+        max-width: var(--oval-measure);
+        margin: 0 0 var(--oval-space-8);
       }
       p {
         margin: 0 0 var(--oval-space-4);
-        max-width: 36em;
-      }
-      code {
-        font-family: var(--oval-font-mono);
-        font-size: 0.9em;
       }
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
         gap: var(--oval-space-4);
       }
+      .grid-wide {
+        grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+      }
       .tile {
-        background: var(--oval-paper-raised);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 9rem;
+        padding: var(--oval-space-6);
         border: var(--oval-rule-width) solid var(--oval-rule);
         border-radius: var(--oval-radius-card);
-        padding: var(--oval-space-6);
-        display: grid;
-        place-items: center;
-        min-height: 9rem;
-      }
-      .tile.dark {
-        background: #16150f;
-        color: #ebe8df;
+        background: var(--oval-paper-raised);
       }
       .tile.light {
         background: #f2f1ec;
         color: #17150f;
       }
+      .tile.dark {
+        background: #131313;
+        color: #e8e6e1;
+      }
       .tile img,
       .tile svg {
         max-width: 100%;
-        height: 2.25rem;
+        height: 2.5rem;
         width: auto;
       }
-      .tile .big {
-        height: 4rem;
+      .tile img.big,
+      .tile svg.big {
+        height: 4.5rem;
       }
       .caption {
-        font-family: var(--oval-font-ui);
+        margin: var(--oval-space-2) 0 0;
+        font-family: var(--oval-font-mono);
         font-size: var(--oval-size-small);
         color: var(--oval-ink-soft);
+      }
+      .caption-text {
+        font-family: var(--oval-font-ui);
+      }
+      .diagram {
+        width: 100%;
+        max-width: 36rem;
+        height: auto;
+        display: block;
+      }
+      .verdict {
+        display: flex;
+        align-items: center;
+        gap: var(--oval-space-2);
         margin: var(--oval-space-2) 0 0;
-        text-align: center;
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
+      }
+      .verdict::before {
+        content: "";
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: var(--oval-support);
+      }
+      .verdict.no::before {
+        background: var(--oval-oppose);
       }
       .swatches {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-        gap: var(--oval-space-3);
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+        gap: var(--oval-space-4);
       }
       .swatch {
         border: var(--oval-rule-width) solid var(--oval-rule);
         border-radius: var(--oval-radius-card);
         overflow: hidden;
-        background: var(--oval-paper-raised);
+        font-family: var(--oval-font-ui);
+        font-size: var(--oval-size-small);
       }
-      .swatch .chip {
+      .swatch > div:first-child {
         height: 4.5rem;
       }
       .swatch dl {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--oval-space-1) var(--oval-space-3);
         margin: 0;
         padding: var(--oval-space-3);
-        font-family: var(--oval-font-ui);
-        font-size: var(--oval-size-small);
-        display: grid;
-        gap: var(--oval-space-1);
+        background: var(--oval-paper-raised);
       }
       .swatch dt {
-        font-weight: 600;
+        color: var(--oval-ink-soft);
       }
       .swatch dd {
         margin: 0;
-        color: var(--oval-ink-soft);
         font-family: var(--oval-font-mono);
       }
-      .specimen {
-        border-top: var(--oval-rule-width) solid var(--oval-rule);
-        padding: var(--oval-space-4) 0;
+      .swatch .name {
+        grid-column: 1 / -1;
+        font-weight: 600;
+      }
+      .type-scale {
         display: grid;
-        grid-template-columns: 8rem 1fr;
         gap: var(--oval-space-4);
-        align-items: baseline;
       }
-      .specimen .role {
-        font-family: var(--oval-font-ui);
-        font-size: var(--oval-size-small);
-        color: var(--oval-ink-soft);
-      }
-      .specimen .sample {
-        min-width: 0;
-        margin: 0;
-      }
-      .display {
-        font-size: var(--oval-size-display);
-        font-weight: 500;
-        line-height: 1;
-        letter-spacing: -0.02em;
-      }
-      .lead {
-        font-size: var(--oval-size-lead);
-      }
-      .ui {
-        font-family: var(--oval-font-ui);
-      }
-      .mono {
-        font-family: var(--oval-font-mono);
-        white-space: pre;
-        overflow-x: auto;
-        font-size: var(--oval-size-small);
-      }
-      .label {
-        font-family: var(--oval-font-ui);
-        font-size: var(--oval-size-small);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: var(--oval-tracking-label);
-      }
-      .stances {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+      .type-row {
         display: grid;
-        gap: var(--oval-space-2);
-        font-family: var(--oval-font-ui);
+        grid-template-columns: 12rem 1fr;
+        gap: var(--oval-space-6);
+        align-items: baseline;
+        padding-bottom: var(--oval-space-4);
+        border-bottom: var(--oval-rule-width) solid var(--oval-rule);
       }
-      .stances li {
-        display: flex;
-        align-items: center;
-        gap: var(--oval-space-3);
-      }
-      .stances svg {
-        height: 1rem;
-        width: auto;
-      }
-      .support {
-        color: var(--oval-support);
-      }
-      .oppose {
-        color: var(--oval-oppose);
-      }
-      .muted {
+      .type-row .meta {
+        font-family: var(--oval-font-mono);
+        font-size: var(--oval-size-small);
         color: var(--oval-ink-soft);
       }
-      table {
-        border-collapse: collapse;
+      .type-row .meta strong {
+        display: block;
+        font-family: var(--oval-font-ui);
+        font-weight: 600;
+        color: var(--oval-ink);
+      }
+      .space-scale {
+        display: flex;
+        align-items: flex-end;
+        gap: var(--oval-space-4);
+        flex-wrap: wrap;
+      }
+      .space-scale div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--oval-space-2);
+        font-family: var(--oval-font-mono);
+        font-size: var(--oval-size-small);
+        color: var(--oval-ink-soft);
+      }
+      .space-scale span {
+        display: block;
+        background: var(--oval-mark);
         width: 100%;
+      }
+      .radii {
+        display: flex;
+        gap: var(--oval-space-4);
+        flex-wrap: wrap;
+      }
+      .radii div {
+        width: 7rem;
+        height: 4rem;
+        border: 2px solid var(--oval-ink);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: var(--oval-space-2);
+        font-family: var(--oval-font-mono);
+        font-size: var(--oval-size-small);
+        color: var(--oval-ink-soft);
+      }
+      .example {
+        border: var(--oval-rule-width) solid var(--oval-rule);
+        border-radius: var(--oval-radius-card);
+        padding: var(--oval-space-6);
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--oval-space-3);
+        align-items: center;
+      }
+      .example.stack {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .example + .caption-text {
+        margin-top: var(--oval-space-2);
+      }
+      .two {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+        gap: var(--oval-space-4);
+      }
+      .checks {
         font-family: var(--oval-font-ui);
         font-size: var(--oval-size-small);
+        padding-left: var(--oval-space-4);
       }
-      th,
-      td {
-        text-align: left;
-        padding: var(--oval-space-2) var(--oval-space-3);
-        border-top: var(--oval-rule-width) solid var(--oval-rule);
-        vertical-align: top;
+      .checks li {
+        margin: var(--oval-space-2) 0;
       }
-      th {
-        color: var(--oval-ink-soft);
-        font-weight: 600;
+      pre.oval-code {
+        margin: var(--oval-space-4) 0;
       }
-      td code {
-        font-size: 0.95em;
-      }
-      @media (max-width: 40rem) {
-        .specimen {
+      @media (max-width: 600px) {
+        .type-row {
           grid-template-columns: 1fr;
           gap: var(--oval-space-1);
         }
@@ -305,10 +323,10 @@
       } catch {}
     </script>
     <div class="page">
-      <header class="lockup">
+      <header class="top">
         <img class="lockup-light" src="logo/lockup.svg" alt="Oval" />
         <img class="lockup-dark" src="logo/lockup-reverse.svg" alt="Oval" />
-        <p>Identity and design tokens</p>
+        <p>Design system</p>
         <fieldset class="theme" aria-label="Theme">
           <label><input type="radio" name="theme" value="light" /> Light</label>
           <label><input type="radio" name="theme" value="dark" /> Dark</label>
@@ -316,301 +334,747 @@
         </fieldset>
       </header>
 
-      <h1>A ballot oval, filled in.</h1>
-      <p>
-        Oval is a plain-text format for voting guides. Its identity is the ballot itself: paper,
-        ink, the purple that marks it, and the oval a voter darkens. Everything on this page comes
-        from
-        <code>tokens/oval.css</code> and the files under <code>logo/</code>.
-      </p>
+      <div class="hero">
+        <h1 class="oval-display">A ballot oval, filled in.</h1>
+        <p class="oval-lead">
+          Oval is a plain-text format for voting guides. Its identity is the ballot itself: paper,
+          ink, and the printed oval a voter darkens. This page is the system that identity produces:
+          the mark, the colors, the type, and the components, all drawn from
+          <code class="oval-code">tokens/oval.css</code> and
+          <code class="oval-code">css/components.css</code>.
+        </p>
+      </div>
 
-      <h2>Mark and wordmark</h2>
-      <div class="grid">
-        <div>
-          <div class="tile light"><img class="big" src="logo/mark.svg" alt="The Oval mark" /></div>
-          <p class="caption">mark.svg on paper</p>
-        </div>
-        <div>
-          <div class="tile dark">
-            <img class="big" src="logo/mark-reverse.svg" alt="The Oval mark on dark paper" />
+      <section id="mark">
+        <h2 class="oval-h2">The mark</h2>
+        <p class="intro">
+          A printed ring, a gap of paper, and the voter's ink inside. The ring is the marking
+          purple; the fill is ink. The ellipse is 1.75 times as wide as it is tall, the ring is
+          0.075 of the height, and the fill is 0.65 of the height wide and centered, which leaves
+          the gap that makes it read as a marked ballot rather than a dot.
+        </p>
+        <div class="grid">
+          <div>
+            <div class="tile light">
+              <img class="big" src="logo/mark.svg" alt="The Oval mark" />
+            </div>
+            <p class="caption">mark.svg</p>
           </div>
-          <p class="caption">mark-reverse.svg on dark paper</p>
-        </div>
-        <div>
-          <div class="tile">
-            <svg
-              viewBox="0 0 64 40"
-              style="height: 4rem; color: var(--oval-ink)"
-              aria-label="Single-color mark"
-            >
-              <ellipse cx="32" cy="20" rx="29.5" ry="17.5" fill="currentColor" />
-            </svg>
+          <div>
+            <div class="tile dark">
+              <img class="big" src="logo/mark-reverse.svg" alt="The Oval mark on dark paper" />
+            </div>
+            <p class="caption">mark-reverse.svg</p>
           </div>
-          <p class="caption">mark-mono.svg, currentColor</p>
-        </div>
-        <div>
-          <div class="tile">
-            <svg
-              viewBox="0 0 64 40"
-              style="height: 4rem; color: var(--oval-ink)"
-              aria-label="Outline mark"
-            >
-              <ellipse
-                cx="32"
-                cy="20"
-                rx="29.5"
-                ry="17.5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="5"
+          <div>
+            <div class="tile">
+              <svg class="big" viewBox="0 0 70 40" aria-label="The mark in one color">
+                <ellipse
+                  cx="35"
+                  cy="20"
+                  rx="33.5"
+                  ry="18.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                />
+                <ellipse cx="35" cy="20" rx="26" ry="13" fill="currentColor" />
+              </svg>
+            </div>
+            <p class="caption">mark-mono.svg</p>
+          </div>
+          <div>
+            <div class="tile">
+              <svg class="big" viewBox="0 0 70 40" aria-label="The mark as outlines">
+                <ellipse
+                  cx="35"
+                  cy="20"
+                  rx="33.5"
+                  ry="18.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                />
+                <ellipse
+                  cx="35"
+                  cy="20"
+                  rx="24.5"
+                  ry="11.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                />
+              </svg>
+            </div>
+            <p class="caption">mark-outline.svg</p>
+          </div>
+          <div>
+            <div class="tile light">
+              <img src="logo/favicon.svg" alt="Favicon" style="height: 2rem" />
+            </div>
+            <p class="caption">favicon.svg at 32 px</p>
+          </div>
+          <div>
+            <div class="tile">
+              <img
+                src="logo/icon.svg"
+                alt="App icon"
+                style="
+                  height: 4.5rem;
+                  border-radius: 1rem;
+                  border: var(--oval-rule-width) solid var(--oval-rule);
+                "
               />
+            </div>
+            <p class="caption">icon.svg, 1024 px</p>
+          </div>
+          <div>
+            <div class="tile">
+              <img
+                src="logo/avatar.png"
+                alt="Avatar"
+                style="
+                  height: 4.5rem;
+                  border-radius: 50%;
+                  border: var(--oval-rule-width) solid var(--oval-rule);
+                "
+              />
+            </div>
+            <p class="caption">avatar.png, 1024 px</p>
+          </div>
+        </div>
+
+        <h3 class="oval-h3">Construction</h3>
+        <svg
+          class="diagram"
+          viewBox="0 0 560 220"
+          role="img"
+          aria-label="The mark's proportions: 1.75 to 1, a ring 0.075 of the height, a fill 0.65 of the height wide"
+        >
+          <g stroke="var(--oval-ink-soft)" stroke-width="1" stroke-dasharray="4 4" fill="none">
+            <rect x="120" y="40" width="280" height="160" />
+            <line x1="120" y1="120" x2="400" y2="120" />
+            <line x1="260" y1="40" x2="260" y2="200" />
+          </g>
+          <ellipse
+            cx="260"
+            cy="120"
+            rx="134"
+            ry="74"
+            fill="none"
+            stroke="var(--oval-mark)"
+            stroke-width="12"
+          />
+          <ellipse cx="260" cy="120" rx="104" ry="52" fill="var(--oval-ink)" />
+          <g font-family="var(--oval-font-mono)" font-size="13" fill="var(--oval-ink-soft)">
+            <text x="260" y="28" text-anchor="middle">1.75 h</text>
+            <text x="110" y="124" text-anchor="end">h</text>
+            <text x="410" y="52">ring 0.075 h</text>
+            <text x="410" y="124">fill 0.65 h × 0.325 h</text>
+            <text x="410" y="196">gap = paper</text>
+          </g>
+          <g stroke="var(--oval-ink-soft)" stroke-width="1" fill="none">
+            <line x1="406" y1="48" x2="394" y2="60" />
+            <line x1="406" y1="120" x2="364" y2="120" />
+            <line x1="406" y1="192" x2="376" y2="160" />
+          </g>
+        </svg>
+
+        <h3 class="oval-h3">Clear space and size</h3>
+        <div class="two">
+          <div>
+            <svg
+              class="diagram"
+              viewBox="0 0 280 160"
+              role="img"
+              aria-label="Clear space of half the mark's height on every side"
+            >
+              <rect
+                x="20"
+                y="20"
+                width="240"
+                height="120"
+                fill="none"
+                stroke="var(--oval-ink-soft)"
+                stroke-dasharray="4 4"
+              />
+              <ellipse
+                cx="140"
+                cy="80"
+                rx="67"
+                ry="37"
+                fill="none"
+                stroke="var(--oval-mark)"
+                stroke-width="6"
+              />
+              <ellipse cx="140" cy="80" rx="52" ry="26" fill="var(--oval-ink)" />
+              <g font-family="var(--oval-font-mono)" font-size="12" fill="var(--oval-ink-soft)">
+                <text x="140" y="14" text-anchor="middle">½ h</text>
+                <text x="140" y="154" text-anchor="middle">½ h</text>
+                <text x="10" y="84" text-anchor="middle">½ h</text>
+                <text x="270" y="84" text-anchor="middle">½ h</text>
+              </g>
             </svg>
+            <p class="caption-text caption">Keep half the mark's height clear on every side.</p>
           </div>
-          <p class="caption">mark-outline.svg, the unfilled state</p>
-        </div>
-      </div>
-      <div class="grid" style="margin-top: var(--oval-space-4)">
-        <div>
-          <div class="tile light"><img src="logo/wordmark.svg" alt="Oval wordmark" /></div>
-          <p class="caption">wordmark.svg</p>
-        </div>
-        <div>
-          <div class="tile light"><img src="logo/lockup.svg" alt="Oval lockup" /></div>
-          <p class="caption">lockup.svg</p>
-        </div>
-        <div>
-          <div class="tile dark">
-            <img src="logo/lockup-reverse.svg" alt="Oval lockup on dark paper" />
+          <div>
+            <div class="example" style="gap: var(--oval-space-8); min-height: 9rem">
+              <img src="logo/mark.svg" alt="" style="height: 16px" />
+              <img src="logo/mark.svg" alt="" style="height: 24px" />
+              <img src="logo/mark.svg" alt="" style="height: 40px" />
+              <img src="logo/mark.svg" alt="" style="height: 64px" />
+            </div>
+            <p class="caption-text caption">
+              16 px is the minimum height on screen; below that, use the favicon, whose ring is
+              thicker.
+            </p>
           </div>
-          <p class="caption">lockup-reverse.svg</p>
         </div>
-        <div>
-          <div class="tile light">
-            <img src="logo/icon.svg" alt="App icon" style="height: 4rem; border-radius: 0.9rem" />
-          </div>
-          <p class="caption">icon.svg</p>
-        </div>
-        <div>
-          <div class="tile light">
-            <img src="logo/avatar.png" alt="Avatar" style="height: 4rem" />
-          </div>
-          <p class="caption">avatar.png, 1024 px</p>
-        </div>
-        <div>
-          <div class="tile light">
-            <img src="logo/favicon.svg" alt="Favicon" style="height: 2rem" />
-          </div>
-          <p class="caption">favicon.svg at 32 px</p>
-        </div>
-      </div>
-      <p style="margin-top: var(--oval-space-6)">
-        Clear space is half the mark's height on every side. The mark is never smaller than 12
-        pixels tall, never stretched, rotated, or shadowed, and never in a color other than ink and
-        the marking purple, or one color from the palette.
-      </p>
+      </section>
 
-      <h2>Color</h2>
-      <p>
-        Purple, not red or blue. Red and blue mean parties in American politics, so the accent is a
-        color that belongs to no party, one shade with 4.0:1 contrast on both papers; the only red
-        is the one that means against, and support is a green.
-      </p>
-      <div class="swatches">
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-paper)"></div>
-          <dl>
-            <dt>paper</dt>
-            <dd>#f2f1ec / #16150f</dd>
-          </dl>
+      <section id="wordmark">
+        <h2 class="oval-h2">Wordmark and lockup</h2>
+        <p class="intro">
+          The wordmark is Instrument Serif set as outlines, so it does not depend on the font being
+          installed. The lockup places the mark at the cap height of the word, one fifth of the type
+          size apart. Use the lockup where the name must be read, the mark alone where the brand is
+          already known.
+        </p>
+        <div class="grid grid-wide">
+          <div>
+            <div class="tile light"><img src="logo/wordmark.svg" alt="Oval wordmark" /></div>
+            <p class="caption">wordmark.svg</p>
+          </div>
+          <div>
+            <div class="tile dark">
+              <img src="logo/wordmark-reverse.svg" alt="Oval wordmark on dark paper" />
+            </div>
+            <p class="caption">wordmark-reverse.svg</p>
+          </div>
+          <div>
+            <div class="tile light"><img src="logo/lockup.svg" alt="Oval lockup" /></div>
+            <p class="caption">lockup.svg</p>
+          </div>
+          <div>
+            <div class="tile dark">
+              <img src="logo/lockup-reverse.svg" alt="Oval lockup on dark paper" />
+            </div>
+            <p class="caption">lockup-reverse.svg</p>
+          </div>
         </div>
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-paper-raised)"></div>
-          <dl>
-            <dt>paper-raised</dt>
-            <dd>#fbfaf7 / #211f17</dd>
-          </dl>
+      </section>
+
+      <section id="usage">
+        <h2 class="oval-h2">Usage</h2>
+        <p class="intro">
+          The mark is a marked ballot and nothing else. Every rule below protects that reading.
+        </p>
+        <div class="grid">
+          <div>
+            <div class="tile light"><img src="logo/mark.svg" alt="" /></div>
+            <p class="verdict">Ink fill, purple ring, on paper.</p>
+          </div>
+          <div>
+            <div class="tile dark"><img src="logo/mark-reverse.svg" alt="" /></div>
+            <p class="verdict">The reverse file on dark paper.</p>
+          </div>
+          <div>
+            <div class="tile" style="color: var(--oval-ink)">
+              <svg viewBox="0 0 70 40" aria-label="The mark in one color">
+                <ellipse
+                  cx="35"
+                  cy="20"
+                  rx="33.5"
+                  ry="18.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                />
+                <ellipse cx="35" cy="20" rx="26" ry="13" fill="currentColor" />
+              </svg>
+            </div>
+            <p class="verdict">One color when color is unavailable.</p>
+          </div>
+          <div>
+            <div class="tile light">
+              <svg viewBox="0 0 70 40" style="height: 2.5rem; width: auto">
+                <ellipse
+                  cx="35"
+                  cy="20"
+                  rx="33.5"
+                  ry="18.5"
+                  fill="none"
+                  stroke="#1d4ed8"
+                  stroke-width="3"
+                />
+                <ellipse cx="35" cy="20" rx="26" ry="13" fill="#b91c1c" />
+              </svg>
+            </div>
+            <p class="verdict no">Never recolor it, and never in party colors.</p>
+          </div>
+          <div>
+            <div class="tile light">
+              <img src="logo/mark.svg" alt="" style="height: 2.5rem; width: 6rem" />
+            </div>
+            <p class="verdict no">Never stretch or squash it.</p>
+          </div>
+          <div>
+            <div class="tile light">
+              <img src="logo/mark.svg" alt="" style="transform: rotate(-18deg)" />
+            </div>
+            <p class="verdict no">Never rotate it.</p>
+          </div>
+          <div>
+            <div class="tile light">
+              <img
+                src="logo/mark.svg"
+                alt=""
+                style="filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.45))"
+              />
+            </div>
+            <p class="verdict no">No shadows, gradients, or outlines.</p>
+          </div>
+          <div>
+            <div
+              class="tile light"
+              style="background: repeating-linear-gradient(45deg, #d8d3c4 0 8px, #f2f1ec 8px 16px)"
+            >
+              <img src="logo/mark.svg" alt="" />
+            </div>
+            <p class="verdict no">Not on patterns or photographs.</p>
+          </div>
+          <div>
+            <div class="tile light">
+              <span style="font: 500 2.25rem/1 var(--oval-font-text)">Oval</span>
+            </div>
+            <p class="verdict no">Never reset the wordmark in another face, even Newsreader.</p>
+          </div>
+          <div>
+            <div
+              class="tile light"
+              style="
+                gap: var(--oval-space-3);
+                font-family: var(--oval-font-ui);
+                font-size: var(--oval-size-small);
+              "
+            >
+              <img src="logo/mark.svg" alt="" style="height: 1rem" /> Delgado
+            </div>
+            <p class="verdict no">Never beside a candidate or party as if it were their bubble.</p>
+          </div>
         </div>
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-ink)"></div>
-          <dl>
-            <dt>ink</dt>
-            <dd>#17150f / #ebe8df</dd>
-          </dl>
+        <p class="intro" style="margin-top: var(--oval-space-8)">
+          The logo and wordmark identify the Oval project. Use them to refer to Oval, to show that a
+          tool reads or writes the format, or to link to oval.vote. Do not use them to suggest that
+          the project endorses a guide, a candidate, a party, or a position.
+        </p>
+      </section>
+
+      <section id="color">
+        <h2 class="oval-h2">Color</h2>
+        <p class="intro">
+          Paper, ink, and the marking purple, with a green and a red reserved for stances. Red and
+          blue carry party meaning in American politics, so the accent belongs to no party and the
+          only red means "against" on a specific question. Both themes are designed, not inverted:
+          light paper is warm stock, dark paper is neutral graphite, and the purple is lighter on
+          dark so that it passes for text on both.
+        </p>
+        <div class="swatches" id="swatches"></div>
+
+        <h3 class="oval-h3">Contrast</h3>
+        <table class="oval-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Role</th>
+              <th class="oval-table-numeric">On light paper</th>
+              <th class="oval-table-numeric">On dark paper</th>
+              <th>Qualifies for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ink</td>
+              <td>Text</td>
+              <td class="oval-table-numeric">16.1</td>
+              <td class="oval-table-numeric">14.9</td>
+              <td>Everything</td>
+            </tr>
+            <tr>
+              <td>ink-soft</td>
+              <td>Secondary text</td>
+              <td class="oval-table-numeric">6.0</td>
+              <td class="oval-table-numeric">6.4</td>
+              <td>Body text (AA)</td>
+            </tr>
+            <tr>
+              <td>mark</td>
+              <td>Ring, underlines, focus, badges</td>
+              <td class="oval-table-numeric">5.3</td>
+              <td class="oval-table-numeric">6.7</td>
+              <td>Body text (AA)</td>
+            </tr>
+            <tr>
+              <td>support</td>
+              <td>Stance text</td>
+              <td class="oval-table-numeric">5.7</td>
+              <td class="oval-table-numeric">8.4</td>
+              <td>Body text (AA)</td>
+            </tr>
+            <tr>
+              <td>oppose</td>
+              <td>Stance text</td>
+              <td class="oval-table-numeric">4.8</td>
+              <td class="oval-table-numeric">6.4</td>
+              <td>Body text (AA)</td>
+            </tr>
+            <tr>
+              <td>rule</td>
+              <td>Hairlines</td>
+              <td class="oval-table-numeric">1.4</td>
+              <td class="oval-table-numeric">1.3</td>
+              <td>Decoration only</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="oval-h3">Stances</h3>
+        <ul class="oval-ballot" style="max-width: var(--oval-measure)">
+          <li class="oval-ballot-row">
+            <span class="oval-bubble oval-bubble-filled" aria-hidden="true"></span>
+            <span
+              ><span class="oval-candidate">Rosa Delgado</span>
+              <span class="oval-role">(incumbent)</span></span
+            >
+            <span class="oval-stance oval-stance-support">Recommended</span>
+          </li>
+          <li class="oval-ballot-row">
+            <span class="oval-bubble" aria-hidden="true"></span>
+            <span class="oval-candidate">Marcus Webb</span>
+            <span class="oval-stance oval-stance-oppose">Oppose</span>
+          </li>
+          <li class="oval-ballot-row">
+            <span class="oval-bubble" aria-hidden="true"></span>
+            <span class="oval-candidate">Priya Natarajan</span>
+            <span></span>
+          </li>
+        </ul>
+        <p class="caption caption-text">
+          Support and oppose color only stance text. Parties are labeled in ink.
+        </p>
+      </section>
+
+      <section id="type">
+        <h2 class="oval-h2">Type</h2>
+        <p class="intro">
+          Newsreader for reading, Public Sans for interface, IBM Plex Mono for Oval source, and
+          Instrument Serif for the wordmark and display sizes only. Newsreader is a newspaper text
+          face, where voting guides have lived for a century; Public Sans is the typeface of the
+          United States Web Design System. All four are open source, served from Google Fonts, with
+          fallback stacks named in the tokens.
+        </p>
+        <div class="type-scale">
+          <div class="type-row">
+            <div class="meta"><strong>Display</strong>Instrument Serif 400 · 4.5rem / 1</div>
+            <p class="oval-display">Franklin votes</p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>H1</strong>Newsreader 500 · 2.75rem / 1.15</div>
+            <p class="oval-h1">Franklin Voter Guide</p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>H2</strong>Newsreader 500 · 2rem / 1.15</div>
+            <p class="oval-h2">Federal Government</p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>H3</strong>Newsreader 500 · 1.5rem / 1.15</div>
+            <p class="oval-h3">President and Vice President</p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>Lead</strong>Newsreader 400 · 1.375rem / 1.4</div>
+            <p class="oval-lead">We interviewed every candidate who agreed to meet with us.</p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>Body</strong>Newsreader 400 · 1.125rem / 1.5</div>
+            <p class="oval-body">
+              Hana Nakamura's first term delivered the port funding Franklin has sought for a
+              decade. The challengers have not released a platform beyond a pledge to cut waste.
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>Small</strong>Public Sans 400 · 0.875rem / 1.5</div>
+            <p class="oval-small">Unexpired term ending January 3, 2027. Vote for one.</p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>Label</strong>Public Sans 600 · 0.75rem · +0.06em</div>
+            <p class="oval-label">Recommended</p>
+          </div>
+          <div class="type-row">
+            <div class="meta"><strong>Mono</strong>IBM Plex Mono 400 · 0.9375rem</div>
+            <p class="oval-mono">contest "City Attorney" single</p>
+          </div>
         </div>
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-ink-soft)"></div>
-          <dl>
-            <dt>ink-soft</dt>
-            <dd>#5f5b50 / #9d988b</dd>
-          </dl>
+        <p class="caption caption-text">
+          Running text sits on a measure of 44rem. Headings balance their line breaks.
+        </p>
+      </section>
+
+      <section id="space">
+        <h2 class="oval-h2">Space and shape</h2>
+        <p class="intro">
+          A 4-pixel base. The scale skips 5 and 7 so that choices stay few, and layouts combine
+          steps rather than invent values.
+        </p>
+        <div class="space-scale" id="spaces"></div>
+        <h3 class="oval-h3">Radius</h3>
+        <div class="radii">
+          <div style="border-radius: var(--oval-radius-small)">small</div>
+          <div style="border-radius: var(--oval-radius-control)">control</div>
+          <div style="border-radius: var(--oval-radius-card)">card</div>
+          <div style="border-radius: var(--oval-radius-pill)">pill</div>
+          <div style="border-radius: var(--oval-radius-oval); width: 7rem; height: 4rem">oval</div>
         </div>
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-rule)"></div>
-          <dl>
-            <dt>rule</dt>
-            <dd>#cfccc2 / #37352c</dd>
-          </dl>
+        <p class="caption caption-text">
+          Rules are 1px hairlines in the rule color. There are no shadows; surfaces are raised by
+          tone and a rule.
+        </p>
+      </section>
+
+      <section id="components">
+        <h2 class="oval-h2">Components</h2>
+        <p class="intro">
+          Classes in <code class="oval-code">css/components.css</code>, each prefixed
+          <code class="oval-code">oval-</code>, built only from the tokens. They are enough for the
+          guide renderer, the website, and the editor's chrome.
+        </p>
+
+        <h3 class="oval-h3">Buttons</h3>
+        <div class="example">
+          <button class="oval-button">Publish guide</button>
+          <button class="oval-button oval-button-secondary">Preview</button>
+          <button class="oval-button oval-button-quiet">Cancel</button>
+          <button class="oval-button oval-button-small">Small</button>
+          <button class="oval-button" disabled>Disabled</button>
         </div>
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-mark)"></div>
-          <dl>
-            <dt>mark</dt>
-            <dd>#975cc1 / #975cc1</dd>
-          </dl>
-        </div>
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-support)"></div>
-          <dl>
-            <dt>support</dt>
-            <dd>#2e6b3a / #5fb36c</dd>
-          </dl>
-        </div>
-        <div class="swatch">
-          <div class="chip" style="background: var(--oval-oppose)"></div>
-          <dl>
-            <dt>oppose</dt>
-            <dd>#c4343a / #e2666b</dd>
-          </dl>
-        </div>
-      </div>
-      <h3>Stances in a rendered guide</h3>
-      <ul class="stances">
-        <li class="support">
-          <svg viewBox="0 0 64 40" aria-hidden="true">
-            <ellipse cx="32" cy="20" rx="29.5" ry="17.5" fill="currentColor" /></svg
-          ><span class="label">Recommended</span
-          ><span
-            class="muted"
-            style="font-family: var(--oval-font-text); font-size: var(--oval-size-body)"
-            >Beatriz Santos</span
-          >
-        </li>
-        <li class="oppose">
-          <svg viewBox="0 0 64 40" aria-hidden="true">
-            <ellipse
-              cx="32"
-              cy="20"
-              rx="29.5"
-              ry="17.5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="5"
+        <p class="caption caption-text">
+          Primary is ink on paper and turns purple on hover; purple is never the resting color of a
+          control.
+        </p>
+
+        <h3 class="oval-h3">Fields</h3>
+        <div class="example stack" style="max-width: 32rem">
+          <div class="oval-field">
+            <label class="oval-label" for="f1">Guide name</label>
+            <input class="oval-input" id="f1" value="Franklin Voter Guide" />
+          </div>
+          <div class="oval-field">
+            <label class="oval-label" for="f2">Election date</label>
+            <input
+              class="oval-input"
+              id="f2"
+              placeholder="YYYY-MM-DD"
+              aria-invalid="true"
+              aria-describedby="f2-note"
             />
-            <path d="M20 10l24 20M44 10L20 30" stroke="currentColor" stroke-width="5" /></svg
-          ><span class="label">Oppose</span
-          ><span
-            class="muted"
-            style="font-family: var(--oval-font-text); font-size: var(--oval-size-body)"
-            >Carl Fox</span
-          >
-        </li>
-        <li class="muted">
-          <svg viewBox="0 0 64 40" aria-hidden="true">
-            <ellipse
-              cx="32"
-              cy="20"
-              rx="29.5"
-              ry="17.5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="5"
-            /></svg
-          ><span class="label">No position</span
-          ><span style="font-family: var(--oval-font-text); font-size: var(--oval-size-body)"
-            >Dee Wright</span
-          >
-        </li>
-      </ul>
+            <p class="oval-field-note oval-field-note-error" id="f2-note">
+              invalid-date: the date is not a calendar date.
+            </p>
+          </div>
+          <div class="oval-field">
+            <label class="oval-label" for="f3">Method</label>
+            <select class="oval-select" id="f3">
+              <option>Vote for one</option>
+              <option>Vote for up to 3</option>
+              <option>Rank up to 5</option>
+            </select>
+          </div>
+          <div class="oval-field">
+            <label class="oval-label" for="f4">Source</label>
+            <textarea class="oval-textarea" id="f4">
+contest "City Attorney" single
+  @delgado incumbent
+  @webb</textarea>
+          </div>
+        </div>
 
-      <h2>Type</h2>
-      <div class="specimen">
-        <div class="role">Newsreader 500, display</div>
-        <p class="sample display">Franklin Voter Guide</p>
-      </div>
-      <div class="specimen">
-        <div class="role">Newsreader 400, lead</div>
-        <p class="sample lead">
-          Every contest and measure on your ballot, with our recommendation and the reasoning behind
-          it.
+        <h3 class="oval-h3">Badges</h3>
+        <div class="example">
+          <span class="oval-badge">D</span>
+          <span class="oval-badge">Incumbent</span>
+          <span class="oval-badge">Withdrawn</span>
+          <span class="oval-badge oval-badge-support">Recommended</span>
+          <span class="oval-badge oval-badge-oppose">Oppose</span>
+          <span class="oval-badge oval-badge-mark">Draft</span>
+        </div>
+        <p class="caption caption-text">
+          Party badges are always the plain badge. Tinted badges are for stances and document state.
         </p>
-      </div>
-      <div class="specimen">
-        <div class="role">Newsreader 400, text</div>
-        <p class="sample">
-          Santos has kept her 2022 promises on housing and transit. Fox has no plan beyond cutting a
-          budget he has not read. We interviewed every candidate who agreed to meet with us and read
-          every measure in full.
+
+        <h3 class="oval-h3">Cards and callouts</h3>
+        <div class="two">
+          <div class="oval-card">
+            <p class="oval-label oval-soft">Measure</p>
+            <p class="oval-h3">Proposition 4</p>
+            <p class="oval-body">
+              Authorizes $1.2 billion in bonds for seismic retrofits of public schools.
+            </p>
+            <p class="oval-small"><span class="oval-badge oval-badge-support">Vote yes</span></p>
+          </div>
+          <div>
+            <div class="oval-callout oval-callout-support">
+              <p class="oval-label" style="color: var(--oval-support)">Rosa Delgado</p>
+              <p class="oval-body">Has run the office for six years without a lost appeal.</p>
+            </div>
+            <div class="oval-callout" style="margin-top: var(--oval-space-4)">
+              <p class="oval-body">A callout without a stance uses the marking purple.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="oval-h3">Ballot rows</h3>
+        <div class="example stack" style="max-width: var(--oval-measure)">
+          <ul class="oval-ballot">
+            <li class="oval-ballot-row">
+              <label style="display: contents"
+                ><input class="oval-bubble-input" type="radio" name="b" checked /><span
+                  class="oval-bubble"
+                  aria-hidden="true"
+                ></span
+                ><span
+                  ><span class="oval-candidate">Hana Nakamura</span>
+                  <span class="oval-role">(President)</span> / Hiro Eriksen
+                  <span class="oval-role">(Vice President)</span> <span class="oval-badge">D</span>
+                  <span class="oval-badge">Incumbent</span></span
+                ></label
+              >
+              <span class="oval-stance oval-stance-support">Recommended</span>
+            </li>
+            <li class="oval-ballot-row">
+              <label style="display: contents"
+                ><input class="oval-bubble-input" type="radio" name="b" /><span
+                  class="oval-bubble"
+                  aria-hidden="true"
+                ></span
+                ><span
+                  ><span class="oval-candidate">Yara Bergstrom</span>
+                  <span class="oval-role">(President)</span> / Omar Rowe
+                  <span class="oval-role">(Vice President)</span>
+                  <span class="oval-badge">R</span></span
+                ></label
+              >
+              <span></span>
+            </li>
+            <li class="oval-ballot-row">
+              <label style="display: contents"
+                ><input class="oval-bubble-input" type="radio" name="b" /><span
+                  class="oval-bubble"
+                  aria-hidden="true"
+                ></span
+                ><span
+                  ><span class="oval-candidate">Petra Patel</span>
+                  <span class="oval-role">(President)</span> / Samir Osei
+                  <span class="oval-role">(Vice President)</span>
+                  <span class="oval-badge">LIB</span></span
+                ></label
+              >
+              <span></span>
+            </li>
+          </ul>
+        </div>
+        <p class="caption caption-text">
+          The bubble is a CSS ellipse, filled in ink. As a static mark it uses
+          <code class="oval-code">oval-bubble-filled</code>; as a control it wraps a hidden radio,
+          as here, and fills when checked.
         </p>
-      </div>
-      <div class="specimen">
-        <div class="role">Public Sans, UI</div>
-        <p class="sample ui">
-          <span class="label">Vote for one</span> &nbsp;
-          <span class="label support">Recommended</span> &nbsp;
-          <span class="label oppose">Oppose</span> &nbsp; <span class="label muted">Incumbent</span>
+
+        <h3 class="oval-h3">Tables</h3>
+        <table class="oval-table">
+          <thead>
+            <tr>
+              <th>Contest</th>
+              <th>Method</th>
+              <th class="oval-table-numeric">Campaigns</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mayor</td>
+              <td>Rank up to 5</td>
+              <td class="oval-table-numeric">7</td>
+              <td>Okafor, then Lindqvist</td>
+            </tr>
+            <tr>
+              <td>City Attorney</td>
+              <td>Vote for one</td>
+              <td class="oval-table-numeric">2</td>
+              <td>Delgado</td>
+            </tr>
+            <tr>
+              <td>Board of Education</td>
+              <td>Vote for up to 3</td>
+              <td class="oval-table-numeric">9</td>
+              <td>No position</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="oval-h3">Code</h3>
+        <pre class="oval-code"><span class="keyword">oval</span> 1
+<span class="keyword">guide</span> <span class="string">"Franklin Voter Guide"</span>
+<span class="keyword">election</span> <span class="string">"November 3, 2026 General Election"</span>
+<span class="keyword">date</span> 2026-11-03
+
+<span class="comment"># Candidates are declared once and referenced by identifier.</span>
+<span class="keyword">candidate</span> @delgado <span class="string">"Rosa Delgado"</span></pre>
+        <p class="caption caption-text">
+          Keywords take the marking purple, strings take support green, comments take soft ink.
+          Inline code is <code class="oval-code">code.oval-code</code>.
         </p>
-      </div>
-      <div class="specimen">
-        <div class="role">IBM Plex Mono, source</div>
-        <pre class="sample mono">
-oval 1
+      </section>
 
-guide "Ashford Voter Guide"
-election "November 3, 2026 General Election"
-date 2026-11-03
+      <section id="accessibility">
+        <h2 class="oval-h2">Accessibility</h2>
+        <ul class="checks">
+          <li>Every text color reaches 4.5:1 on both papers; the table above lists the ratios.</li>
+          <li>
+            Focus is a 2px ring in the marking purple with a 2px offset, on every interactive
+            element.
+          </li>
+          <li>
+            Stances are never carried by color alone: a filled bubble and a text label accompany
+            every support, and "Oppose" is always written.
+          </li>
+          <li>
+            Transitions are 150ms and drop to 0ms under
+            <code class="oval-code">prefers-reduced-motion</code>.
+          </li>
+          <li>Controls are 2.5rem tall, so targets are at least 40px.</li>
+          <li>Printed guides keep the filled bubbles and lose the controls.</li>
+        </ul>
+      </section>
 
-ballot @city "City of Ashford"
-  contest @mayor "Mayor" single
-    campaign incumbent @bsantos "Beatriz Santos"
-    campaign @cfox "Carl Fox"
-    recommend
-      support @bsantos</pre>
-      </div>
-
-      <h2>Tokens</h2>
-      <p>
-        Every value on this page is a custom property in <code>tokens/oval.css</code>, prefixed
-        <code>--oval-</code>, and the same set as data in <code>tokens/oval.json</code>.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Group</th>
-            <th>Tokens</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Color</td>
-            <td>
-              <code>paper</code> <code>paper-raised</code> <code>ink</code> <code>ink-soft</code>
-              <code>rule</code> <code>mark</code> <code>support</code> <code>oppose</code>
-            </td>
-          </tr>
-          <tr>
-            <td>Font</td>
-            <td><code>font-text</code> <code>font-ui</code> <code>font-mono</code></td>
-          </tr>
-          <tr>
-            <td>Size</td>
-            <td>
-              <code>size-small</code> <code>size-body</code> <code>size-lead</code>
-              <code>size-h3</code> <code>size-h2</code> <code>size-h1</code>
-              <code>size-display</code> <code>line-body</code> <code>line-tight</code>
-              <code>tracking-label</code> <code>measure</code>
-            </td>
-          </tr>
-          <tr>
-            <td>Space</td>
-            <td><code>space-1</code> through <code>space-16</code>, in quarter rems</td>
-          </tr>
-          <tr>
-            <td>Radius</td>
-            <td><code>radius-small</code> <code>radius-card</code> <code>radius-oval</code></td>
-          </tr>
-        </tbody>
-      </table>
+      <section id="tokens">
+        <h2 class="oval-h2">Using the tokens</h2>
+        <p class="intro">
+          Load the tokens, then the components if you want them, then the fonts. The dark values
+          apply under <code class="oval-code">prefers-color-scheme: dark</code> and under
+          <code class="oval-code">[data-theme="dark"]</code>, so a page can follow the system or set
+          a theme itself, as the picker at the top of this page does.
+        </p>
+        <pre class="oval-code">
+&lt;link rel="stylesheet" href="https://brand.oval.vote/tokens/oval.css" /&gt;
+&lt;link rel="stylesheet" href="https://brand.oval.vote/css/components.css" /&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Public+Sans:wght@400;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" /&gt;</pre>
+        <p class="intro">
+          <code class="oval-code">tokens/oval.json</code> is the same set as data, with a
+          description on each token, for tools that generate from it.
+        </p>
+      </section>
     </div>
+
     <script>
       const picker = document.querySelector("fieldset.theme");
       const current = document.documentElement.dataset.theme || "auto";
@@ -630,6 +1094,30 @@ ballot @city "City of Ashford"
           }
         } catch {}
       });
+
+      fetch("tokens/oval.json")
+        .then((response) => response.json())
+        .then((tokens) => {
+          document.getElementById("swatches").innerHTML = Object.entries(tokens.color)
+            .map(
+              ([name, value]) => `
+                <div class="swatch">
+                  <div style="background: var(--oval-${name})"></div>
+                  <dl>
+                    <div class="name">${name}</div>
+                    <dt>light</dt><dd>${value.light}</dd>
+                    <dt>dark</dt><dd>${value.dark}</dd>
+                  </dl>
+                </div>`,
+            )
+            .join("");
+          document.getElementById("spaces").innerHTML = Object.entries(tokens.space)
+            .map(
+              ([step, value]) =>
+                `<div><span style="height: ${value}; width: ${value}"></span>${step}<br />${value}</div>`,
+            )
+            .join("");
+        });
     </script>
   </body>
 </html>

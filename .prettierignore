@@ -1,6 +1,3 @@
 node_modules/
 package-lock.json
-logo/wordmark.svg
-logo/wordmark-reverse.svg
-logo/lockup.svg
-logo/lockup-reverse.svg
+logo/*.svg
